@@ -9,6 +9,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from locators import planificacion_horaria
+import unittest
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -16,21 +18,39 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-USER = os.environ.get("URL")
+USER = os.environ.get("USER")
 PASSWORD = os.environ.get("PASSWORD")
+URL = os.environ.get("URL")
 
-class TestDefaultSuite():
-  def setup_method(self, method):
-    self.driver = webdriver.Chrome()
-    self.vars = {}
+#locator = planificacion_horaria
+
+#driver = webdriver.Chrome('./chromedriver.exe')
+#driver.get(URL)
+#driver.implicitly_wait(10)
   
-  def teardown_method(self, method):
-    self.driver.quit()
+class PlanificacionHoraria(unittest.TestCase):
+  @classmethod
+  def setup(self):
+   self.driver = webdriver.Chrome('./chromedriver.exe')
+   
+  def init(self):
+   driver = self.driver
+   driver.get(URL)
+   driver.implicitly_wait(30)
+   driver.maximize_window()
   
-  def test_abrirLenoxlogin(self):
-    self.driver.find_element(By.ID, "Usuario").send_keys(USER)
-    self.driver.find_element(By.ID, "Password").send_keys("lenox2021")
-    self.driver.find_element(By.ID, "btnIngresar").click()
-    self.driver.find_element(By.CSS_SELECTOR, "li:nth-child(3) label").click()
-    self.driver.find_element(By.LINK_TEXT, "Planificacion horaria").click()
+  @classmethod
+  def tearDown(self):
+   self.driver.close()
+
+if __name__ == "__main__":
+  unittest.main()
+
+
+
+
+
+
+
+  
 

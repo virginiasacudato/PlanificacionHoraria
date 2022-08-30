@@ -1,1 +1,4 @@
 /.env
+/locators.py
+/chromedriver.exe
+/__pycache__
