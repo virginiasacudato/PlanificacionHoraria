@@ -1,9 +1,9 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
+<div>
   <a href="https://github.com/virginiasacudato/PlanificacionHoraria">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+   
   </a>
 
 <h3 align="center">Automatización de Planificación Horaria</h3>
@@ -14,17 +14,18 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## Acerca del proyecto
 
 Con este proyecto se busca automatizar pruebas para el módulo Planificación Horaria.
 
 A continuación un detalle de los casos de prueba que realiza:
 
-1. Test Suite (Jornadas):
+**1. Test Suite (Jornadas):**
 - Caso 1: Seleccionar x empleados de la lista y clickear "Generar". Verifica la existencia de elemento traído.
 - Caso 2: Cambio de jornada completa para todos los días generados. Verifica el cambio.
 - Caso 3: Cambio de jornada en algunos de los días generados. Verifica el cambio.
-2. Test Suite (Filtros):
+
+**2. Test Suite (Filtros):**
 [Antes de generar empleados]
 - Caso 1: Selecciona x elemento del filtro Empresa y Sector. Verifica cambios en vista.
 - Caso 2: Selecciona x fecha desde/hasta. Verifica cambios en vista.
@@ -35,21 +36,24 @@ A continuación un detalle de los casos de prueba que realiza:
 - Caso 7: Selecciona x empleados. Selecciona x empresa y genera nuevamente. Verifica cambios.
 - Caso 8: Selecciona x empleados. Selecciona x sector y genera. Verifica cambios.
 - Caso 9: X sector y x empresa.
-3. Test Suite (Save):
-Precondiciones: Tener seleccionados x empleados, haber realizado cambios en jornada.
+
+**3. Test Suite (Save):**
+*Precondiciones: Tener seleccionados x empleados, haber realizado cambios en jornada.*
 - Caso 1 (Happy Path): Guardar. Verifica leyenda de operación exitosa.
 - Caso 2: No realiza ningún cambio en jornada. Verifica leyenda de error.
-4. Test Suite (Imprimir):
-Precondiciones: Tener seleccionados x empleados y haberlos generado.
+
+**4. Test Suite (Imprimir):**
+*Precondiciones: Tener seleccionados x empleados y haberlos generado.*
 - Caso 1 (Happy Path): Selecciona "Imprimir". Verifica la generación de la pantalla de impresión.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-### Built With
+### Construido
 
-* [![Python][Python]][Python-url]
+* Python - Pytest
+* Selenium
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -71,7 +75,7 @@ v.Python >= 3.10
    ```sh
    git clone https://github.com/virginiasacudato/PlanificacionHoraria.git
    ```
-3. En linea de comandos ejecutar (Aclaración: el segundo comando es opcional, sirve para ver los mensajes print):
+3. En linea de comandos ejecutar (*Aclaración: el segundo comando es opcional, sirve para ver los mensajes print*):
    ```sh
    python -m pytest
    ```
@@ -84,7 +88,7 @@ v.Python >= 3.10
 
 
 <!-- CONTACT -->
-## Contact
+## Contacto
 
 Virginia Sacudato
 
@@ -93,5 +97,4 @@ Project Link: [https://github.com/virginiasacudato/PlanificacionHoraria](https:/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-
+ 

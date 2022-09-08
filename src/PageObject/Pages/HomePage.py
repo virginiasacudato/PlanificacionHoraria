@@ -1,15 +1,15 @@
 import time
 
 from selenium.webdriver.common.by import By
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
+# import os
+# from os.path import join, dirname
+# from dotenv import load_dotenv
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 # URL base
-base_url = "http://localhost/lenox"
+# base_url = "http://localhost/lenox"
 
 
 class HomePage:
@@ -40,6 +40,6 @@ class HomePage:
         self.get_btn_ingreso().click()
 
     # URL base como método estático
-    @staticmethod
-    def get_base_url():
-        return base_url
+    # @staticmethod
+    # def get_base_url():
+    #    return base_url

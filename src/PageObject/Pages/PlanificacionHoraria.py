@@ -1,22 +1,24 @@
 import time
 
 from selenium.webdriver.common.by import By
-from os.path import join, dirname
-from dotenv import load_dotenv
+# from os.path import join, dirname
+# from dotenv import load_dotenv
 import re
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
-base_url = "http://localhost/lenox"
+#base_url = "http://localhost/lenox"
+
 
 
 class PlanificacionHoraria:
 
     def __init__(self, driver):
+        # Locators
         self.driver = driver
-        self.horarios = "/html/body/main/aside/section/nav/ul/li[3]/div/label"
-        self.planificacion_horaria = "Planificacion horaria"
+        #self.horarios = "/html/body/main/aside/section/nav/ul/li[3]/div/label"
+        #self.planificacion_horaria = "Planificacion horaria"
         self.title = "/html/body/main/section/div[2]/div[1]/h1"
         self.employees = "css=tr:nth-child(3) label"
         self.btn_gen = '//*[@id="formCargaPlanificacionHoraria"]/section/div/div[6]/button'
@@ -30,11 +32,12 @@ class PlanificacionHoraria:
         # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[2]/span
         # //*[@id="tablaEmpleadosYJornadas"]/tr[6]/td[2]/span  --> TR VA DE 2 EN 2
 
-    def get_horarios(self):
-        return self.driver.find_element(By.XPATH, self.horarios)
+    # Get elements
+    #def get_horarios(self):
+    #    return self.driver.find_element(By.XPATH, self.horarios)
 
-    def get_planificacion_horaria(self):
-        return self.driver.find_element(By.LINK_TEXT, self.planificacion_horaria)
+    #def get_planificacion_horaria(self):
+    #    return self.driver.find_element(By.LINK_TEXT, self.planificacion_horaria)
 
     def get_title(self):
         return self.driver.find_element(By.XPATH, self.title)
@@ -58,10 +61,10 @@ class PlanificacionHoraria:
         return self.driver.find_element(By.ID, self.save_btn)
 
     # Actions
-    def plan_horaria(self):
-        self.get_horarios().click()
-        time.sleep(3)
-        self.get_planificacion_horaria().click()
+    #def plan_horaria(self):
+    #    self.get_horarios().click()
+    #    time.sleep(3)
+    #    self.get_planificacion_horaria().click()
 
     # TEST SUITE - JORNADAS
     def select_employees(self):
@@ -75,8 +78,9 @@ class PlanificacionHoraria:
 
         cuenta.numero = 0
         global emp_selected
-        global replacestr
+        global new_list_emp_sele
         emp_selected = []
+        new_list_emp_sele = []
 
         for i in range(8):
             emp = self.driver.find_element(By.XPATH,
@@ -85,7 +89,16 @@ class PlanificacionHoraria:
             emp_selected.append(emp.text)
 
         replacestr = [replaceString(s) for s in emp_selected]
+        for x in replacestr:
+            es_mayus = x.isupper()
+            if es_mayus is True:
+                x.upper()
+                new_list_emp_sele.append(x.strip())
+
+        print(new_list_emp_sele)
+
         # print(replacestr)
+        # SE PRECISA SACAR LOS ESPACIOS AL FINAL DE CADA ELEMENTO, SINO MAL CHECK
 
         # //*[@id="tableBodyEmpleados"]/tr[3]/td/div/label
         # //*[@id="tableBodyEmpleados"]/tr[2]/td/div/label
@@ -114,9 +127,9 @@ class PlanificacionHoraria:
             empleados_obtenidos.append(empleado)  # Almecena el valor obtenido en el array
 
         new_emp_obt = [replace_string(s) for s in empleados_obtenidos]
-        # print(new_emp_obt)
+        print(new_emp_obt)
 
-        check = any(item in new_emp_obt for item in replacestr)
+        check = any(item in new_emp_obt for item in new_list_emp_sele)
 
         if check:
             print("Se generaron algunos empleados seleccionados.")
@@ -124,11 +137,6 @@ class PlanificacionHoraria:
             print("Ningun empleado con calendario asignado.")
 
     # Case 2: Select an employee and modify full time. Check cambio de jornada.
-    # xpath=//tbody[@id='tablaEmpleadosYJornadas']/tr[4]/td[2]/span --> Employee
-    # xpath=//tbody[@id='tablaEmpleadosYJornadas']/tr/th[2] --> Table
-
-    # Tener en cuenta de que la celda del color de jornada tiene  un atributo "modificada" que aparecera en "true"
-    # solo en caso de que se seleccione una nueva jornada.
 
     def mod_fulltime_employee(self):
         self.get_table_emp().click()
@@ -141,18 +149,31 @@ class PlanificacionHoraria:
             self.get_ele_jor().click()
             # print("No coincide la jornada, primer elemento clic.")
 
-    def save_changes(self):
+    def save_changes(self):  # Función que en test_login se podria/deberia usar varias veces
         self.get_btn_gen().click()
         # Podria verificar el texto del modal exitoso
 
     # Case 3: Modify specific days
     def mod_spec_days(self):
-        color_day = []
-        day_jornada = self.driver.find_elements(By.XPATH, '//*[@id="tablaEmpleadosYJornadas"]/tr/td/div')
-        # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[6]
-        for days_jornada in day_jornada:
-            days_jornada.get_attribute("iddia")
+        def cuenta():
+            cuenta.numero += 3
+            return cuenta.numero
 
-    @staticmethod
-    def get_base_url():
-        return base_url
+        color_day = []
+        cuenta.numero = 0
+        # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[6]
+        for i in range(2):
+            day_jornada = self.driver.find_element(By.XPATH, '//*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[' + str(
+                cuenta()) + ']/div')
+            day_jornada.click()
+        # for days_jornada in day_jornada:
+        #    color_day.append(days_jornada.get_attribute("iddia"))
+        # res = []
+        # for val in color_day:
+        #    if val != None:
+        #        res.append(val)
+        # print(res)
+
+    # @staticmethod
+    # def get_base_url():
+    #    return base_url
