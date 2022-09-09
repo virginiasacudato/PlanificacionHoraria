@@ -11,3 +11,4 @@ class Test_filters(WebDriverSetup):
         driver = self.driver
         filters = Filters(driver)
         filters.select_emp_sec()
+
