@@ -31,6 +31,7 @@ A continuación un detalle de los casos de prueba que realiza:
 - Caso 2: Selecciona x fecha desde/hasta. Verifica cambios en vista.
 - Caso 3: Selecciona Empresa. Verifica cambios en vista.
 - Caso 4: Seleccionar Sector. Verifica cambios en vista.
+
 [Déspues de generar empleados]
 - Caso 5: Selecciona x empleados. Verifica cambios en check Sabados y Domingos.
 - Caso 6: Selecciona x empleados. Selecciona x empresa y genera nuevamente. Verifica cambios.
