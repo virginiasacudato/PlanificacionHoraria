@@ -5,11 +5,11 @@ from selenium.webdriver.common.by import By
 # from dotenv import load_dotenv
 import re
 
+
 # dotenv_path = join(dirname(__file__), '.env')
 # load_dotenv(dotenv_path)
 
-#base_url = "http://localhost/lenox"
-
+# base_url = "http://localhost/lenox"
 
 
 class PlanificacionHoraria:
@@ -17,8 +17,8 @@ class PlanificacionHoraria:
     def __init__(self, driver):
         # Locators
         self.driver = driver
-        #self.horarios = "/html/body/main/aside/section/nav/ul/li[3]/div/label"
-        #self.planificacion_horaria = "Planificacion horaria"
+        # self.horarios = "/html/body/main/aside/section/nav/ul/li[3]/div/label"
+        # self.planificacion_horaria = "Planificacion horaria"
         self.title = "/html/body/main/section/div[2]/div[1]/h1"
         self.employees = "css=tr:nth-child(3) label"
         self.btn_gen = '//*[@id="formCargaPlanificacionHoraria"]/section/div/div[6]/button'
@@ -26,17 +26,18 @@ class PlanificacionHoraria:
         self.employee_name = '.filaEmpleado:nth-child(4) .nombreEmpleado'
         self.ele_jor = '.jornadaItem:nth-child(2) > .jornadaTexto'
         self.second_ele_jor = '.jornadaItem:nth-child(3) > .jornadaTexto'
-        self.color_day_work = '.jornadaEmpleado:nth-child(3)'
+        self.color_day_work = '.jornadaEmpleado:nth-child(3)'  # css=.jornadaEmpleado:nth-child(3) > #\32 90
+        # //*[@id="EmpleadosYJornadas"]/div[2]/table
         self.save_btn = 'aplicarCambios'
         self.select_day = '//*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[4]'
         # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[2]/span
         # //*[@id="tablaEmpleadosYJornadas"]/tr[6]/td[2]/span  --> TR VA DE 2 EN 2
 
     # Get elements
-    #def get_horarios(self):
+    # def get_horarios(self):
     #    return self.driver.find_element(By.XPATH, self.horarios)
 
-    #def get_planificacion_horaria(self):
+    # def get_planificacion_horaria(self):
     #    return self.driver.find_element(By.LINK_TEXT, self.planificacion_horaria)
 
     def get_title(self):
@@ -61,7 +62,7 @@ class PlanificacionHoraria:
         return self.driver.find_element(By.ID, self.save_btn)
 
     # Actions
-    #def plan_horaria(self):
+    # def plan_horaria(self):
     #    self.get_horarios().click()
     #    time.sleep(3)
     #    self.get_planificacion_horaria().click()
@@ -141,6 +142,7 @@ class PlanificacionHoraria:
     def mod_fulltime_employee(self):
         self.get_table_emp().click()
         # self.get_ele_jor().click()
+        global jor_color_selected
         color_day_work = self.get_day_work().get_attribute("title")
         jor_color_selected = self.get_ele_jor().get_attribute("title")
         if color_day_work == jor_color_selected:
@@ -155,6 +157,7 @@ class PlanificacionHoraria:
 
     # Case 3: Modify specific days
     def mod_spec_days(self):
+
         def cuenta():
             cuenta.numero += 3
             return cuenta.numero
@@ -166,6 +169,9 @@ class PlanificacionHoraria:
             day_jornada = self.driver.find_element(By.XPATH, '//*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[' + str(
                 cuenta()) + ']/div')
             day_jornada.click()
+            color_day.append(day_jornada.get_attribute("title"))
+        print(color_day)
+        self.get_ele_jor().click()
         # for days_jornada in day_jornada:
         #    color_day.append(days_jornada.get_attribute("iddia"))
         # res = []

@@ -31,6 +31,7 @@ class WebDriverSetup(unittest.TestCase):
         self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/label').click()
         self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/div/ul/li[3]/a').click()
 
+
     def tearDown(self):
         if self.driver is not None:
             self.driver.close()

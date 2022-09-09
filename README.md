@@ -32,10 +32,10 @@ A continuación un detalle de los casos de prueba que realiza:
 - Caso 3: Selecciona Empresa. Verifica cambios en vista.
 - Caso 4: Seleccionar Sector. Verifica cambios en vista.
 [Déspues de generar empleados]
-- Caso 6: Selecciona x empleados. Verifica cambios en check Sabados y Domingos.
-- Caso 7: Selecciona x empleados. Selecciona x empresa y genera nuevamente. Verifica cambios.
-- Caso 8: Selecciona x empleados. Selecciona x sector y genera. Verifica cambios.
-- Caso 9: X sector y x empresa.
+- Caso 5: Selecciona x empleados. Verifica cambios en check Sabados y Domingos.
+- Caso 6: Selecciona x empleados. Selecciona x empresa y genera nuevamente. Verifica cambios.
+- Caso 7: Selecciona x empleados. Selecciona x sector y genera. Verifica cambios.
+- Caso 8: X sector y x empresa.
 
 **3. Test Suite (Save):**
 *Precondiciones: Tener seleccionados x empleados, haber realizado cambios en jornada.*

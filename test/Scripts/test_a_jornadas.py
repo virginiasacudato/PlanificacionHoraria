@@ -1,4 +1,5 @@
 import time
+import pytest
 
 # from src.PageObject.Pages import HomePage
 from src.TestBase.WebDriverSetup import WebDriverSetup
@@ -38,7 +39,7 @@ class Test_login(WebDriverSetup):
     #    plan_horaria.plan_horaria()
     #    time.sleep(5)
 
-    def test_b_select_employ(self):
+    def test_a_select_employ(self):
         global plan_horaria
         driver = self.driver
         # self.driver.get(PlanificacionHoraria.get_base_url())
@@ -54,16 +55,13 @@ class Test_login(WebDriverSetup):
         plan_horaria.generate()
         plan_horaria.check_emp_gen()
 
-    def test_c_mod_jornada_com(self):
-        self.test_b_select_employ()
+    def test_b_mod_jornada_com(self):
+        self.test_a_select_employ()
         plan_horaria.mod_fulltime_employee()
-        time.sleep(8)
         plan_horaria.save_changes()
 
-    def test_d_mod_jor_parc(self):
-        self.test_b_select_employ()  # --> DEPENDENCIA DE PRUEBA
+    def test_c_mod_jor_parc(self):
+        self.test_a_select_employ()
         plan_horaria.mod_spec_days()
-        time.sleep(5)
         plan_horaria.save_changes()
-        time.sleep(5)
 

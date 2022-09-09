@@ -12,3 +12,8 @@ class Test_filters(WebDriverSetup):
         filters = Filters(driver)
         filters.select_emp_sec()
 
+    def test_b_select_date(self):
+        driver = self.driver
+        filters = Filters(driver)
+        filters.select_date()
+
