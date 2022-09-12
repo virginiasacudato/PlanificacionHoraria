@@ -183,3 +183,4 @@ class PlanificacionHoraria:
     # @staticmethod
     # def get_base_url():
     #    return base_url
+

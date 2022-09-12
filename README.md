@@ -76,7 +76,13 @@ v.Python >= 3.10
    ```sh
    git clone https://github.com/virginiasacudato/PlanificacionHoraria.git
    ```
-3. En linea de comandos ejecutar (*Aclaración: el segundo comando es opcional, sirve para ver los mensajes print*):
+2. Crear un archivo .env con las siguientes variables de entorno:
+   ```sh
+   USER=example@mail.com
+   PASSWORD=password
+   URL=http://urlexample.com
+   ```
+3. En línea de comandos ejecutar (*Aclaración: el segundo comando es opcional, sirve para ver los mensajes print*):
    ```sh
    python -m pytest
    ```

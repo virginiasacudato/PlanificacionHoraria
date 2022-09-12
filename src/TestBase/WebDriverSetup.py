@@ -36,3 +36,5 @@ class WebDriverSetup(unittest.TestCase):
         if self.driver is not None:
             self.driver.close()
             self.driver.quit()
+
+

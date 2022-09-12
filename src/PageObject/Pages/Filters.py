@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 # from os.path import join, dirname
 # from dotenv import load_dotenv
 import random
-from random import choice
+import time
 
 
 # dotenv_path = join(dirname(__file__), '.env')
@@ -23,6 +23,7 @@ class Filters:
         self.empresa = 'IdEmpresa'
         self.sector = 'IdSector'
         self.option = 'option'
+        self.day_gen = '//*[@id="tablaEmpleadosYJornadas"]/tr[2]/th[3]/span'
 
     # Get elements
     def get_date_from(self):
@@ -39,6 +40,12 @@ class Filters:
 
     def get_options(self):
         return self.driver.find_elements(By.TAG_NAME, self.option)
+
+    def get_body(self):
+        return self.driver.find_element(By.TAG_NAME, 'body')
+
+    def get_day_gen(self):
+        return self.driver.find_element(By.XPATH, self.day_gen)
 
     # TEST SUITE - FILTROS
 
@@ -61,18 +68,31 @@ class Filters:
 
     # 2 Case: Seleccionar x fecha desde/hasta
     def select_date(self):
-        def random_date():
-            months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
-                    '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-            years = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019',
-                     '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028']
+        # Seleccion de fecha aleatoria segun un rango de fechas
+        def str_time_prop(start, end, time_format, prop):
+            stime = time.mktime(time.strptime(start, time_format))
+            etime = time.mktime(time.strptime(end, time_format))
 
-            rand_date = '{}.{}.{}'.format(*map(choice, [days, months, years]))
-            return rand_date()
-        print(random_date())
+            ptime = stime + prop * (etime - stime)
 
-        self.get_date_to().send_key(str(random_date()))
+            return time.strftime(time_format, time.localtime(ptime))
+
+        def random_date(start, end, prop):
+            return str_time_prop(start, end, '%d/%m/%Y', prop) # Formato Day-Month-Year
+
+        fin_date = random_date("1/1/2020", "1/1/2021", random.random())
+        print(fin_date)
+        # Envio de date aleatoria a input
+        self.get_date_from().send_keys(fin_date)
+        self.get_date_from().set_attribute('value', str(fin_date))
+
+    def check_filter_date(self):
+        self.get_body().click()
+        value_date = self.get_date_from().get_attribute("value")
+        txt_gen_date = self.get_day_gen().text
+        print(value_date)
+
+
 
     # 3 Case: Seleccionar empresa
     def select_empresa(self):
@@ -95,14 +115,6 @@ class Filters:
 
     # 5 Case: Checks excluir Sabados y domingos.
     # (A partir de aca se generan los siguientes casos en un entorno despues de haber generado X empleados)
-
-
-
-
-
-
-
-
 
     # @staticmethod
     # def get_base_url():
