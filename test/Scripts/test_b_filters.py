@@ -12,15 +12,26 @@ class Test_filters(WebDriverSetup):
         filters = Filters(driver)
         filters.select_emp_sec()
 
-    def test_b_select_date(self):
+    #def test_b_select_date(self):
+    #    driver = self.driver
+    #    filters = Filters(driver)
+    #    select_emp = PlanificacionHoraria(driver)
+    #    filters.select_date()
+    #    time.sleep(5)
+    #    select_emp.select_employees()
+    #    select_emp.generate()
+    #    filters.check_filter_date()
+
+    def test_c_checkbox(self):
         driver = self.driver
         filters = Filters(driver)
         select_emp = PlanificacionHoraria(driver)
-        filters.select_date()
-        time.sleep(5)
         select_emp.select_employees()
         select_emp.generate()
-        filters.check_filter_date()
+        time.sleep(4)
+        filters.checkbox_sun_sat()
+        time.sleep(6)
+
 
 
 

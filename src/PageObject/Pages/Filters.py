@@ -1,17 +1,9 @@
-# import time
-
 from selenium.webdriver.common.by import By
-# from os.path import join, dirname
-# from dotenv import load_dotenv
 import random
 import time
 import datetime
-
-
-# dotenv_path = join(dirname(__file__), '.env')
-# load_dotenv(dotenv_path)
-
-# base_url = "http://localhost/lenox"
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class Filters:
@@ -24,7 +16,12 @@ class Filters:
         self.empresa = 'IdEmpresa'
         self.sector = 'IdSector'
         self.option = 'option'
-        self.day_gen = '.fechas:nth-child(3) > .fecha'
+        self.day_gen = 'fecha'
+        self.sunday = '//*[@id="excluirSabado"]/label'
+        self.saturday = '//*[@id="excluirDomingo"]/label'
+        self.sun_gen = '//*[@id="tablaEmpleadosYJornadas"]/tr[1]/th[6]/span'
+        # '//*[@id="tablaEmpleadosYJornadas"]/tr[1]/th[7]/span'
+        self.sat_gen = '//*[@id="tablaEmpleadosYJornadas"]/tr[1]/th[7]/span'
 
     # Get elements
     def get_date_from(self):
@@ -46,7 +43,19 @@ class Filters:
         return self.driver.find_element(By.TAG_NAME, 'body')
 
     def get_day_gen(self):
-        return self.driver.find_element(By.CSS_SELECTOR, self.day_gen)
+        return self.driver.find_element(By.CLASS_NAME, self.day_gen)
+
+    def get_sunday(self):
+        return self.driver.find_element(By.XPATH, self.sunday)
+
+    def get_saturday(self):
+        return self.driver.find_element(By.XPATH, self.saturday)
+
+    def get_sun_gen(self):
+        return self.driver.find_element(By.XPATH, self.sun_gen)
+
+    def get_sat_gen(self):
+        return self.driver.find_element(By.XPATH, self.sat_gen)
 
     # TEST SUITE - FILTROS
 
@@ -54,9 +63,8 @@ class Filters:
 
     def select_emp_sec(self):
         self.get_empresa().click()
-        for option in self.get_options():
-            print(option.text)
-
+        # for option in self.get_options():
+        #    print(option.text)
         random_opt = random.choice(self.get_options())
         # print(random_opt)
         random_opt.click()
@@ -81,7 +89,7 @@ class Filters:
         def random_date(start, end, prop):
             return str_time_prop(start, end, '%d/%m/%Y', prop)  # Formato Day-Month-Year
 
-        fin_date = random_date("1/1/2020", "1/1/2021", random.random())
+        fin_date = random_date("1/1/2021", "1/1/2022", random.random())
         print(fin_date)
         # Envio de date aleatoria a input
         self.get_date_from().send_keys(fin_date)
@@ -93,15 +101,21 @@ class Filters:
         self.get_body().click()
         value_date = self.get_date_from().get_attribute("value")
         txt_gen_date = self.get_day_gen().text
-        check_gen_date = str(txt_gen_date).startswith("0")
-        if check_gen_date is True:
-            str(txt_gen_date).replace('0', '')
-            print(txt_gen_date)
-        else:
-            print("No se encontró ningun cero en la fecha:", txt_gen_date)
+        print(txt_gen_date)
         new_date_value = datetime.datetime.strptime(value_date, '%Y-%m-%d').strftime('%d')
-        print(new_date_value)
-
+        check_gen_date = str(new_date_value).startswith("0")
+        print(check_gen_date)
+        if check_gen_date is True:
+            new_date_value.replace(new_date_value[0], '', 1)
+            print("new_date_value --> ", new_date_value)
+        else:
+            print("No se encontró ningun cero en la fecha:", new_date_value)
+        print(txt_gen_date)
+        if txt_gen_date == new_date_value:
+            print("Coinciden.")
+        else:
+            print("No se generó la fecha especificada")
+        assert txt_gen_date == new_date_value
 
     # 3 Case: Seleccionar empresa
     def select_empresa(self):
@@ -124,6 +138,22 @@ class Filters:
 
     # 5 Case: Checks excluir Sabados y domingos.
     # (A partir de aca se generan los siguientes casos en un entorno despues de haber generado X empleados)
+
+    def checkbox_sun_sat(self):
+        self.get_sunday().click()
+        self.get_saturday().click()
+        sun_gen = self.get_sun_gen().is_displayed()
+        sat_gen = self.get_sat_gen().is_displayed()
+        #wait = WebDriverWait(self.driver, 200)
+        # Chequear la existencia del elemento
+        if sun_gen and sat_gen is True:
+            print("Los elementos existen.")
+        else:
+            print("Desaparecieron.")
+
+        #sun_invisible = wait.until(EC.invisibility_of_element(sun_gen))
+        #wait.until(EC.invisibility_of_element(sat_gen))
+
 
     # @staticmethod
     # def get_base_url():

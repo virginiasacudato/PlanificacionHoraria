@@ -137,6 +137,8 @@ class PlanificacionHoraria:
         else:
             print("Ningun empleado con calendario asignado.")
 
+        assert check == True
+
     # Case 2: Select an employee and modify full time. Check cambio de jornada.
 
     def mod_fulltime_employee(self):
@@ -183,4 +185,3 @@ class PlanificacionHoraria:
     # @staticmethod
     # def get_base_url():
     #    return base_url
-
