@@ -63,17 +63,14 @@ class Filters:
 
     def select_emp_sec(self):
         self.get_empresa().click()
-        # for option in self.get_options():
-        #    print(option.text)
         random_opt = random.choice(self.get_options())
-        # print(random_opt)
-        random_opt.click()
+        self.driver.execute_script("arguments[0].click();",
+                                   WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(random_opt)))
         self.get_sector().click()
-        # for optiontwo in self.get_options():
-        # print(optiontwo.text)
         random_opt_sec = random.choice(self.get_options())
-        # print(random_opt_sec)
-        random_opt_sec.click()
+        self.driver.execute_script("arguments[0].click();",
+                                   WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(random_opt_sec)))
+        # Assert code status 200
 
     # 2 Case: Seleccionar x fecha desde/hasta
     def select_date(self):
@@ -81,7 +78,6 @@ class Filters:
         def str_time_prop(start, end, time_format, prop):
             stime = time.mktime(time.strptime(start, time_format))
             etime = time.mktime(time.strptime(end, time_format))
-
             ptime = stime + prop * (etime - stime)
 
             return time.strftime(time_format, time.localtime(ptime))
@@ -94,6 +90,7 @@ class Filters:
         # Envio de date aleatoria a input
         self.get_date_from().send_keys(fin_date)
         self.driver.execute_script("arguments[0].setAttribute('value'," + str(fin_date) + ")", self.get_date_from())
+
         # self.get_date_from().set_attribute('value', str(fin_date))
 
     # El chequeo del empleado tiene que ser despues de la generacion del empleado
@@ -144,16 +141,17 @@ class Filters:
         self.get_saturday().click()
         sun_gen = self.get_sun_gen().is_displayed()
         sat_gen = self.get_sat_gen().is_displayed()
-        #wait = WebDriverWait(self.driver, 200)
+        # wait = WebDriverWait(self.driver, 200)
         # Chequear la existencia del elemento
         if sun_gen and sat_gen is True:
             print("Los elementos existen.")
         else:
             print("Desaparecieron.")
 
-        #sun_invisible = wait.until(EC.invisibility_of_element(sun_gen))
-        #wait.until(EC.invisibility_of_element(sat_gen))
+        assert sun_gen and sat_gen is True
 
+        # sun_invisible = wait.until(EC.invisibility_of_element(sun_gen))
+        # wait.until(EC.invisibility_of_element(sat_gen))
 
     # @staticmethod
     # def get_base_url():
