@@ -8,8 +8,6 @@ class PlanificacionHoraria:
     def __init__(self, driver):
         # Locators
         self.driver = driver
-        # self.horarios = "/html/body/main/aside/section/nav/ul/li[3]/div/label"
-        # self.planificacion_horaria = "Planificacion horaria"
         self.title = "/html/body/main/section/div[2]/div[1]/h1"
         self.employees = "css=tr:nth-child(3) label"
         self.btn_gen = '//*[@id="formCargaPlanificacionHoraria"]/section/div/div[6]/button'
@@ -17,12 +15,9 @@ class PlanificacionHoraria:
         self.employee_name = '.filaEmpleado:nth-child(4) .nombreEmpleado'
         self.ele_jor = '.jornadaItem:nth-child(2) > .jornadaTexto'
         self.second_ele_jor = '.jornadaItem:nth-child(3) > .jornadaTexto'
-        self.color_day_work = '.jornadaEmpleado:nth-child(3)'  # css=.jornadaEmpleado:nth-child(3) > #\32 90
-        # //*[@id="EmpleadosYJornadas"]/div[2]/table
+        self.color_day_work = '.jornadaEmpleado:nth-child(3)'
         self.save_btn = 'aplicarCambios'
         self.select_day = '//*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[4]'
-        # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[2]/span
-        # //*[@id="tablaEmpleadosYJornadas"]/tr[6]/td[2]/span  --> TR VA DE 2 EN 2
 
     # Get elements
     def get_title(self):
@@ -55,7 +50,6 @@ class PlanificacionHoraria:
             return cuenta.numero
 
         def replaceString(text):
-            # ABADI SABRINA GABRIEL (310)
             return re.sub(r'\([^)]*\)', '', str(text))
 
         cuenta.numero = 0
@@ -78,12 +72,6 @@ class PlanificacionHoraria:
                 new_list_emp_sele.append(x.strip())
 
         print(new_list_emp_sele)
-
-        # print(replacestr)
-        # SE PRECISA SACAR LOS ESPACIOS AL FINAL DE CADA ELEMENTO, SINO MAL CHECK
-
-        # //*[@id="tableBodyEmpleados"]/tr[3]/td/div/label
-        # //*[@id="tableBodyEmpleados"]/tr[2]/td/div/label
 
         time.sleep(3)
         # return emp_selected
@@ -132,9 +120,9 @@ class PlanificacionHoraria:
             self.get_second_ele_jor().click()
         else:
             self.get_ele_jor().click()
-            # print("No coincide la jornada, primer elemento clic.")
 
-    def save_changes(self):  # Función que en test_login se podria/deberia usar varias veces
+
+    def save_changes(self):
         self.get_btn_gen().click()
         # Podria verificar el texto del modal exitoso
 
@@ -147,7 +135,7 @@ class PlanificacionHoraria:
 
         color_day = []
         cuenta.numero = 0
-        # //*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[6]
+
         for i in range(2):
             day_jornada = self.driver.find_element(By.XPATH, '//*[@id="tablaEmpleadosYJornadas"]/tr[4]/td[' + str(
                 cuenta()) + ']/div')
@@ -155,14 +143,5 @@ class PlanificacionHoraria:
             color_day.append(day_jornada.get_attribute("title"))
         print(color_day)
         self.get_ele_jor().click()
-        # for days_jornada in day_jornada:
-        #    color_day.append(days_jornada.get_attribute("iddia"))
-        # res = []
-        # for val in color_day:
-        #    if val != None:
-        #        res.append(val)
-        # print(res)
 
-    # @staticmethod
-    # def get_base_url():
-    #    return base_url
+
