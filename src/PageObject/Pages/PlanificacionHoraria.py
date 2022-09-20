@@ -1,16 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
-# from os.path import join, dirname
-# from dotenv import load_dotenv
 import re
-
-
-# dotenv_path = join(dirname(__file__), '.env')
-# load_dotenv(dotenv_path)
-
-# base_url = "http://localhost/lenox"
-
 
 class PlanificacionHoraria:
 
@@ -34,12 +25,6 @@ class PlanificacionHoraria:
         # //*[@id="tablaEmpleadosYJornadas"]/tr[6]/td[2]/span  --> TR VA DE 2 EN 2
 
     # Get elements
-    # def get_horarios(self):
-    #    return self.driver.find_element(By.XPATH, self.horarios)
-
-    # def get_planificacion_horaria(self):
-    #    return self.driver.find_element(By.LINK_TEXT, self.planificacion_horaria)
-
     def get_title(self):
         return self.driver.find_element(By.XPATH, self.title)
 
@@ -62,10 +47,6 @@ class PlanificacionHoraria:
         return self.driver.find_element(By.ID, self.save_btn)
 
     # Actions
-    # def plan_horaria(self):
-    #    self.get_horarios().click()
-    #    time.sleep(3)
-    #    self.get_planificacion_horaria().click()
 
     # TEST SUITE - JORNADAS
     def select_employees(self):

@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), 'C:/Users/Maynar/Desktop/PlanificacionHoraria/.env')
 load_dotenv(dotenv_path)
 
-# URL base
+# Environment Variables
 USER = os.getenv('USER')
 PASSWORD = os.getenv('PASSWORD')
 
@@ -31,10 +31,7 @@ class WebDriverSetup(unittest.TestCase):
         self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/label').click()
         self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/div/ul/li[3]/a').click()
 
-
     def tearDown(self):
         if self.driver is not None:
             self.driver.close()
             self.driver.quit()
-
-

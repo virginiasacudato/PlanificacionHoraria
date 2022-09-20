@@ -82,7 +82,11 @@ v.Python >= 3.10
    PASSWORD=password
    URL=http://urlexample.com
    ```
-3. En línea de comandos ejecutar (*Aclaración: el segundo comando es opcional, sirve para ver los mensajes print*):
+3. Descargar ```chromedriver``` y ubicar en la raíz del proyecto. 
+            https://chromedriver.chromium.org/downloads
+
+   *Tener en cuenta la version del navegador web a la hora de descargar.*
+4. En línea de comandos ejecutar (*El segundo comando es opcional, sirve para ver los mensajes print*):
    ```sh
    python -m pytest
    ```
