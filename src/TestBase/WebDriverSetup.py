@@ -15,6 +15,8 @@ PASSWORD = os.getenv('PASSWORD')
 
 BASE_URL = os.getenv('URL')
 
+## python -m pytest --html=report.html
+
 
 class WebDriverSetup(unittest.TestCase):
     def setUp(self):
@@ -29,7 +31,7 @@ class WebDriverSetup(unittest.TestCase):
         self.driver.find_element(By.ID, 'Password').send_keys(PASSWORD)
         self.driver.find_element(By.ID, 'btnIngresar').click()
         self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/label').click()
-        self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/div/ul/li[3]/a').click()
+        self.driver.find_element(By.XPATH, '/html/body/main/aside/section/nav/ul/li[3]/div/div/ul/li[4]/a').click()
 
     def tearDown(self):
         if self.driver is not None:

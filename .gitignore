@@ -1,3 +1,5 @@
 /.env
 /chromedriver.exe
 /__pycache__
+/.pytest_cache
+/.idea

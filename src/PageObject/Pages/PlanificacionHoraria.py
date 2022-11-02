@@ -64,14 +64,16 @@ class PlanificacionHoraria:
             emp.click()
             emp_selected.append(emp.text)
 
-        replacestr = [replaceString(s) for s in emp_selected]
-        for x in replacestr:
-            es_mayus = x.isupper()
-            if es_mayus is True:
-                x.upper()
-                new_list_emp_sele.append(x.strip())
+        print(emp_selected)
 
-        print(new_list_emp_sele)
+        #replacestr = [replaceString(s) for s in emp_selected]
+        #for x in replacestr:
+        #    es_mayus = x.isupper()
+        #    if es_mayus is True:
+        #        x.upper()
+        #        new_list_emp_sele.append(x.strip())
+
+        #print(new_list_emp_sele)
 
         time.sleep(3)
         # return emp_selected
@@ -99,7 +101,7 @@ class PlanificacionHoraria:
         new_emp_obt = [replace_string(s) for s in empleados_obtenidos]
         print(new_emp_obt)
 
-        check = any(item in new_emp_obt for item in new_list_emp_sele)
+        check = any(item in new_emp_obt for item in emp_selected)
 
         if check:
             print("Se generaron algunos empleados seleccionados.")

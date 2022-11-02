@@ -85,8 +85,9 @@ class Filters:
         def random_date(start, end, prop):
             return str_time_prop(start, end, '%d/%m/%Y', prop)  # Formato Day-Month-Year
 
-        fin_date = random_date("1/1/2021", "1/1/2022", random.random())
+        fin_date = random_date("1/1/2022", "31/12/2022", random.random())
         print(fin_date)
+
         # Envio de date aleatoria a input
         self.get_date_from().send_keys(fin_date)
         self.driver.execute_script("arguments[0].setAttribute('value'," + str(fin_date) + ")", self.get_date_from())
